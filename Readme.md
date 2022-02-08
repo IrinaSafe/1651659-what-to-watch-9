@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Irina](https://up.htmlacademy.ru/react/9/user/1651659).
-* Наставник: `Неизвестно`.
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
