@@ -20,11 +20,6 @@ function Player(): JSX.Element {
               <use xlinkHref="#play-s"></use>
             </svg>
             <span>Play</span>
-            {/* Кнопка паузы из player-pause
-            <svg viewBox="0 0 14 21" width="14" height="21">
-              <use xlink:href="#pause"></use>
-            </svg>
-            <span>Pause</span> */}
           </button>
           <div className="player__name">Transpotting</div>
 
