@@ -1,11 +1,14 @@
-import SvgSprite from '../common/svgSprite';
-import HeadGuest from '../common/head-guest';
-import SignOut from '../common/signOut';
-import Footer from '../common/footer';
+import SvgSprite from '../components/common/svgSprite';
+import HeadGuest from '../components/common/head-guest';
+import SignOut from '../components/common/signOut';
+import Footer from '../components/common/footer';
+import CatalogFilms from '../components/catalog-films/catalog-films';
+import { AppRoute } from '../constans';
+import { Link } from 'react-router-dom';
 
 function Film(): JSX.Element {
   return (
-    <body>
+    <>
       <SvgSprite />
 
       <section className="film-card film-card--full">
@@ -35,13 +38,15 @@ function Film(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
+
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="/films/:id/review" className="btn film-card__button">Add review</a>
+
+                <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -96,48 +101,12 @@ function Film(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="/films/:id">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="/films/:id">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="/films/:id">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="/films/:id">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <CatalogFilms />
         </section>
 
         <Footer />
       </div>
-    </body>
+    </>
   );
 }
 

@@ -1,13 +1,16 @@
+import { Link } from 'react-router-dom';
+import {AppRoute} from '../../constans';
+
 function SingOut(): JSX.Element {
   return (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar">
+        <Link to={AppRoute.MyList} className="user-block__avatar">
           <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-        </div>
+        </Link>
       </li>
       <li className="user-block__item">
-        <a className="user-block__link" href="/sign-in">Sign out</a>
+        <Link to={AppRoute.Root} className="user-block__link">Sign out</Link>
       </li>
     </ul>
   );
