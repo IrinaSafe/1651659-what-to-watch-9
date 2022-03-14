@@ -1,6 +1,8 @@
-import SvgSprite from '../common/svgSprite';
-import HeadGuest from '../common/head-guest';
-import SignOut from '../common/signOut';
+import SvgSprite from '../components/common/svgSprite';
+import HeadGuest from '../components/common/head-guest';
+import SignOut from '../components/common/signOut';
+import { Link } from 'react-router-dom';
+import {AppRoute} from '../constans';
 
 function AddReview(): JSX.Element {
   return (
@@ -20,10 +22,10 @@ function AddReview(): JSX.Element {
               <nav className="breadcrumbs">
                 <ul className="breadcrumbs__list">
                   <li className="breadcrumbs__item">
-                    <a href="/films/:id" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                    <Link to={`${AppRoute.Films}/${AppRoute.Id}`} className="breadcrumbs__link">The Grand Budapest Hotel</Link>
                   </li>
                   <li className="breadcrumbs__item">
-                    <a className="breadcrumbs__link" href="/films/:id/review">Add review</a>
+                    <Link to={`${AppRoute.Films}/${AppRoute.Id}/${AppRoute.AddReview}`} className="breadcrumbs__link">Add review</Link>
                   </li>
                 </ul>
               </nav>

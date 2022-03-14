@@ -1,8 +1,13 @@
 import Logo from './logo';
 
-function HeadGuest({children}: {children: JSX.Element}): JSX.Element {
+type HeadGuestTypes = {
+  children?: JSX.Element;
+  additionalClass?: string;
+}
+
+function HeadGuest({ children, additionalClass }: HeadGuestTypes): JSX.Element {
   return (
-    <header className="page-header">
+    <header className={`page-header ${additionalClass}`}>
       <Logo />
       {children}
     </header>
