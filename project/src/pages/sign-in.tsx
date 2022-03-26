@@ -1,14 +1,16 @@
 import HeadGuest from '../components/common/head-guest';
 import Footer from '../components/common/footer';
+import {AuthorizationStatus} from '../constans';
 
 type SignInTypes = {
   additionalClass: string,
+  authorizationStatus: AuthorizationStatus,
 }
 
-function SignIn({additionalClass}: SignInTypes): JSX.Element {
+function SignIn({additionalClass, authorizationStatus}: SignInTypes): JSX.Element {
   return (
     <div className="user-page">
-      <HeadGuest additionalClass = {additionalClass}>
+      <HeadGuest additionalClass = {additionalClass} authorizationStatus={authorizationStatus}>
         <h1 className="page-title user-page__title">Sign in</h1>
       </HeadGuest>
 
