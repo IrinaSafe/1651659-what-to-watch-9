@@ -12,7 +12,7 @@ type LayoutTypes = {
 function Layout({children, additionalClass, authorizationStatus}: LayoutTypes): JSX.Element {
   return (
     <Fragment>
-      <HeadGuest additionalClass = {additionalClass} authorizationStatus={authorizationStatus}>
+      <HeadGuest additionalClass={additionalClass} authorizationStatus={authorizationStatus}>
         {children}
       </HeadGuest>
 

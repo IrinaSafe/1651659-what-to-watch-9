@@ -11,21 +11,26 @@ import { AuthorizationStatus, AppRoute } from './constans';
 import { FilmsTypes } from './types/films';
 
 type AppTypes = {
-  filmName: string,
-  filmGenre: string,
-  filmYear: number,
   additionalClass: string,
   films: FilmsTypes[],
+  promoFilm: FilmsTypes,
   genres: string[],
 }
 
-function App({filmName, filmGenre, filmYear, additionalClass, films, genres}: AppTypes): JSX.Element {
+function App({additionalClass, films, genres, promoFilm}: AppTypes): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Main filmName={filmName} filmGenre={filmGenre} filmYear={filmYear} authorizationStatus={AuthorizationStatus.NoAuth} films={films} genres={genres} />}
+          element={(
+            <Main
+              authorizationStatus={AuthorizationStatus.NoAuth}
+              films={films}
+              genres={genres}
+              promoFilm={promoFilm}
+            />
+          )}
         />
 
         <Route
@@ -34,16 +39,42 @@ function App({filmName, filmGenre, filmYear, additionalClass, films, genres}: Ap
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
             >
-              <MyList additionalClass={additionalClass} authorizationStatus={AuthorizationStatus.NoAuth} films={films} />
+              <MyList
+                additionalClass={additionalClass}
+                authorizationStatus={AuthorizationStatus.NoAuth}
+                films={films}
+              />
             </PrivateRoute>
           }
         />
 
         <Route path={AppRoute.Films}>
-          <Route index element={<Films authorizationStatus={AuthorizationStatus.NoAuth} films={films} />} />
+          <Route
+            index element={
+              <Films
+                authorizationStatus={AuthorizationStatus.NoAuth}
+                films={films}
+              />
+            }
+          />
           <Route path={AppRoute.Id}>
-            <Route index element={<Films authorizationStatus={AuthorizationStatus.NoAuth} films={films} />} />
-            <Route path={AppRoute.AddReview} element={<AddReview authorizationStatus={AuthorizationStatus.NoAuth} />} />
+            <Route
+              index element={
+                <Films
+                  authorizationStatus={AuthorizationStatus.NoAuth}
+                  films={films}
+                />
+              }
+            />
+            <Route
+              path={AppRoute.AddReview}
+              element={
+                <AddReview
+                  authorizationStatus={AuthorizationStatus.NoAuth}
+                  films={films}
+                />
+              }
+            />
           </Route>
         </Route>
 

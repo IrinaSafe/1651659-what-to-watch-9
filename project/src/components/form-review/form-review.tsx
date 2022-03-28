@@ -13,18 +13,18 @@ function FormReview(): JSX.Element {
         <div className="rating">
           <div className="rating__stars">
             {
-              ratingValues.map((item) => (
-                <React.Fragment key={item}>
+              ratingValues.map((ratingValue) => (
+                <React.Fragment key={ratingValue}>
                   <input
                     className="rating__input"
                     type="radio"
                     name="rating"
-                    value={item}
-                    id={`star-${item}`}
-                    checked={item === rating}
+                    value={ratingValue}
+                    id={`star-${ratingValue}`}
+                    checked={ratingValue === rating}
                     onChange = {(evt) => setRating(Number(evt.target.value))}
                   />
-                  <label className="rating__label" htmlFor={`star-${item}`}>Rating {item}</label>
+                  <label className="rating__label" htmlFor={`star-${ratingValue}`}>Rating {ratingValue}</label>
                 </React.Fragment>
               ))
             }
@@ -37,7 +37,8 @@ function FormReview(): JSX.Element {
             name="review-text"
             id="review-text"
             placeholder="Review text"
-            value={review} onChange={(evt) => setReview(evt.target.value)}
+            value={review}
+            onChange={(evt) => setReview(evt.target.value)}
           >
           </textarea>
 

@@ -1,14 +1,20 @@
 import SvgSprite from '../components/common/svgSprite';
 import HeadGuest from '../components/common/head-guest';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthorizationStatus, AppRoute } from '../constans';
 import FormReview from '../components/form-review/form-review';
+import { FilmsTypes } from '../types/films';
 
 type AddReviewProps = {
   authorizationStatus: AuthorizationStatus,
+  films: FilmsTypes[],
 };
 
-function AddReview({authorizationStatus}: AddReviewProps): JSX.Element {
+function AddReview({authorizationStatus, films}: AddReviewProps): JSX.Element {
+  const pathParameters = useParams();
+  const filmId = Number(pathParameters.id);
+  const currentFilm = films.find((item) => item.id === filmId) || films[0];
+
   return (
     <body>
       <SvgSprite />
@@ -16,7 +22,10 @@ function AddReview({authorizationStatus}: AddReviewProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img
+              src={currentFilm.backgroundImage}
+              alt={currentFilm.name}
+            />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -25,17 +34,32 @@ function AddReview({authorizationStatus}: AddReviewProps): JSX.Element {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={`${AppRoute.Films}/${AppRoute.Id}`} className="breadcrumbs__link">The Grand Budapest Hotel</Link>
+                  <Link
+                    to={`${AppRoute.Films}/${currentFilm.id}`}
+                    className="breadcrumbs__link"
+                  >
+                    {currentFilm.name}
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
-                  <Link to={`${AppRoute.Films}/${AppRoute.Id}/${AppRoute.AddReview}`} className="breadcrumbs__link">Add review</Link>
+                  <Link
+                    to={`${AppRoute.Films}/${currentFilm.id}/${AppRoute.AddReview}`}
+                    className="breadcrumbs__link"
+                  >
+                    Add review
+                  </Link>
                 </li>
               </ul>
             </nav>
           </HeadGuest>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img
+              src={currentFilm.posterImage}
+              alt={currentFilm.name}
+              width="218"
+              height="327"
+            />
           </div>
         </div>
 

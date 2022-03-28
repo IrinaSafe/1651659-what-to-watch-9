@@ -7,22 +7,23 @@ import { AuthorizationStatus } from '../constans';
 import { FilmsTypes } from '../types/films';
 
 type MainTypes = {
-  filmName: string,
-  filmGenre: string,
-  filmYear: number,
   authorizationStatus: AuthorizationStatus,
   films: FilmsTypes[],
   genres: string[],
+  promoFilm: FilmsTypes,
 };
 
-function Main({filmName, filmGenre, filmYear, authorizationStatus, films, genres}: MainTypes): JSX.Element {
+function Main({authorizationStatus, films, genres, promoFilm}: MainTypes): JSX.Element {
   return (
     <>
       <SvgSprite />
 
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img
+            src={promoFilm.backgroundImage}
+            alt={promoFilm.name}
+          />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -32,14 +33,19 @@ function Main({filmName, filmGenre, filmYear, authorizationStatus, films, genres
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src={promoFilm.posterImage}
+                alt={promoFilm.name}
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmName}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmGenre}</span>
-                <span className="film-card__year">{filmYear}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -67,7 +73,9 @@ function Main({filmName, filmGenre, filmYear, authorizationStatus, films, genres
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            {genres.map((genre) => <GenreItem genre={genre} key={genre}/>)}
+            {genres.map((genre) => (
+              <GenreItem genre={genre} key={genre}/>
+            ))}
           </ul>
 
           <CatalogFilms films={films} />

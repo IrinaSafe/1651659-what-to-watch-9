@@ -4,6 +4,7 @@ import Footer from '../components/common/footer';
 import CatalogFilms from '../components/catalog-films/catalog-films';
 import { AuthorizationStatus, AppRoute } from '../constans';
 import { Link, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { FilmsTypes } from '../types/films';
 
 type FilmProps = {
@@ -15,6 +16,24 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
   const pathParameters = useParams();
   const filmId = Number(pathParameters.id);
   const currentFilm = films.find((item) => item.id === filmId) || films[0];
+
+  const [filmLevel, setFilmLevel] = useState('');
+
+  useEffect(() => {
+    if (currentFilm.scoresCount >= 0 && currentFilm.scoresCount < 3) {
+      setFilmLevel('Bad');
+    } else if (currentFilm.scoresCount >= 3 && currentFilm.scoresCount < 5) {
+      setFilmLevel('Normal');
+    } else if (currentFilm.scoresCount >= 5 && currentFilm.scoresCount < 8) {
+      setFilmLevel('Good');
+    } else if (currentFilm.scoresCount >= 8 && currentFilm.scoresCount < 10) {
+      setFilmLevel('Very good');
+    } else if(currentFilm.scoresCount === 10) {
+      setFilmLevel('Awesome');
+    } else {
+      setFilmLevel('Unknown');
+    }
+  }, [currentFilm.scoresCount]);
 
   return (
     <>
@@ -53,7 +72,12 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
                   <span>My list</span>
                 </button>
 
-                <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                <Link
+                  to={AppRoute.AddReview}
+                  className="btn film-card__button"
+                >
+                  Add review
+                </Link>
               </div>
             </div>
           </div>
@@ -62,7 +86,12 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327" />
+              <img
+                src={currentFilm.posterImage}
+                alt={currentFilm.name}
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
@@ -84,7 +113,7 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
               <div className="film-rating">
                 <div className="film-rating__score">{currentFilm.scoresCount}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
+                  <span className="film-rating__level">{filmLevel}</span>
                   <span className="film-rating__count">{`${currentFilm.rating} ratings`}</span>
                 </p>
               </div>
@@ -92,9 +121,13 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
               <div className="film-card__text">
                 <p>{currentFilm.description}</p>
 
-                <p className="film-card__director"><strong>{`Director: ${currentFilm.director}`}</strong></p>
+                <p className="film-card__director">
+                  <strong>{`Director: ${currentFilm.director}`}</strong>
+                </p>
 
-                <p className="film-card__starring"><strong>{`Starring: ${currentFilm.starring.join(', ')}`}</strong></p>
+                <p className="film-card__starring">
+                  <strong>{`Starring: ${currentFilm.starring.join(', ')}`}</strong>
+                </p>
               </div>
               {/* Конец меняющейся части */}
             </div>
