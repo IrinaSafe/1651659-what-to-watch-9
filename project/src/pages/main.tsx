@@ -1,42 +1,51 @@
 import SvgSprite from '../components/common/svgSprite';
 import HeadGuest from '../components/common/head-guest';
-import SignOut from '../components/common/signOut';
+import GenreItem from '../components/common/genres';
 import Footer from '../components/common/footer';
 import CatalogFilms from '../components/catalog-films/catalog-films';
+import { AuthorizationStatus } from '../constans';
+import { FilmsTypes } from '../types/films';
 
 type MainTypes = {
-  filmName: string,
-  filmGenre: string,
-  filmYear: number,
+  authorizationStatus: AuthorizationStatus,
+  films: FilmsTypes[],
+  genres: string[],
+  promoFilm: FilmsTypes,
 };
 
-function Main({filmName, filmGenre, filmYear}: MainTypes): JSX.Element {
+function Main({authorizationStatus, films, genres, promoFilm}: MainTypes): JSX.Element {
   return (
     <>
       <SvgSprite />
 
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img
+            src={promoFilm.backgroundImage}
+            alt={promoFilm.name}
+          />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <HeadGuest>
-          <SignOut />
-        </HeadGuest>
+        <HeadGuest authorizationStatus={authorizationStatus} />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src={promoFilm.posterImage}
+                alt={promoFilm.name}
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmName}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmGenre}</span>
-                <span className="film-card__year">{filmYear}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -64,39 +73,12 @@ function Main({filmName, filmGenre, filmYear}: MainTypes): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="/test" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/test" className="catalog__genres-link">Thrillers</a>
-            </li>
+            {genres.map((genre) => (
+              <GenreItem genre={genre} key={genre}/>
+            ))}
           </ul>
 
-          <CatalogFilms />
+          <CatalogFilms films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
