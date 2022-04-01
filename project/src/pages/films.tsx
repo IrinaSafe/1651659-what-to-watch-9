@@ -2,7 +2,7 @@ import SvgSprite from '../components/common/svgSprite';
 import HeadGuest from '../components/common/head-guest';
 import Footer from '../components/common/footer';
 import CatalogFilms from '../components/catalog-films/catalog-films';
-import { AuthorizationStatus, AppRoute } from '../constans';
+import { AuthorizationStatus, AppRoute, FilmLevel } from '../constans';
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FilmsTypes } from '../types/films';
@@ -20,16 +20,16 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
   const [filmLevel, setFilmLevel] = useState('');
 
   useEffect(() => {
-    if (currentFilm.scoresCount >= 0 && currentFilm.scoresCount < 3) {
-      setFilmLevel('Bad');
-    } else if (currentFilm.scoresCount >= 3 && currentFilm.scoresCount < 5) {
-      setFilmLevel('Normal');
-    } else if (currentFilm.scoresCount >= 5 && currentFilm.scoresCount < 8) {
-      setFilmLevel('Good');
-    } else if (currentFilm.scoresCount >= 8 && currentFilm.scoresCount < 10) {
-      setFilmLevel('Very good');
-    } else if(currentFilm.scoresCount === 10) {
-      setFilmLevel('Awesome');
+    if (currentFilm.scoresCount >= FilmLevel.Bad.score && currentFilm.scoresCount < FilmLevel.Normal.score) {
+      setFilmLevel(FilmLevel.Bad.name);
+    } else if (currentFilm.scoresCount >= FilmLevel.Normal.score && currentFilm.scoresCount < FilmLevel.Good.score) {
+      setFilmLevel(FilmLevel.Normal.name);
+    } else if (currentFilm.scoresCount >= FilmLevel.Good.score && currentFilm.scoresCount < FilmLevel.VeryGood.score) {
+      setFilmLevel(FilmLevel.Good.name);
+    } else if (currentFilm.scoresCount >= FilmLevel.VeryGood.score && currentFilm.scoresCount < FilmLevel.Awesome.score) {
+      setFilmLevel(FilmLevel.VeryGood.name);
+    } else if (currentFilm.scoresCount === FilmLevel.Awesome.score) {
+      setFilmLevel(FilmLevel.Awesome.name);
     } else {
       setFilmLevel('Unknown');
     }
