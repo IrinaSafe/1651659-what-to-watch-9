@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CatalogFilms from '../catalog-films/catalog-films';
 import { FilmsTypes } from '../../types/films';
+import { DEFAULT_GENRE, MAIN_FILMS_COUNT } from '../../constans';
 
 type GenresProps = {
   films: FilmsTypes[],
 }
 
 function Genres({films}: GenresProps): JSX.Element {
-  const [activeGenre, setActiveGenre] = useState('All genres');
+  const [activeGenre, setActiveGenre] = useState(DEFAULT_GENRE);
   const genres = films.map((item) => item.genre);
-  genres.unshift('All genres');
-  genres.splice(8);
+  genres.unshift(DEFAULT_GENRE);
+  genres.splice(MAIN_FILMS_COUNT);
 
   const handleClick = (genre: string) => {
     setActiveGenre(genre);

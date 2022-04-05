@@ -2,7 +2,7 @@ import SvgSprite from '../components/common/svgSprite';
 import HeadGuest from '../components/common/head-guest';
 import Footer from '../components/common/footer';
 import CatalogFilms from '../components/catalog-films/catalog-films';
-import { AuthorizationStatus, AppRoute, FilmLevel } from '../constans';
+import { AuthorizationStatus, AppRoute, FilmLevel, MORE_FILMS_COUNT } from '../constans';
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FilmsTypes } from '../types/films';
@@ -19,7 +19,7 @@ function Film({authorizationStatus, films, reviews}: FilmProps): JSX.Element {
   const pathParameters = useParams();
   const filmId = Number(pathParameters.id);
   const currentFilm = films.find((item) => item.id === filmId) || films[0];
-  const filteredGenreArray = films.filter((item) => item.genre === currentFilm.genre && item.id !== currentFilm.id).splice(0, 4);
+  const filteredGenreArray = films.filter((item) => item.genre === currentFilm.genre && item.id !== currentFilm.id).splice(0, MORE_FILMS_COUNT);
 
   const [filmLevel, setFilmLevel] = useState('');
 
