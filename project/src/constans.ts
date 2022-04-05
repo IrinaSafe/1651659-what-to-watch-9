@@ -41,3 +41,13 @@ export const VIDEO_SIZES = {
   width: '280',
   height: '175',
 };
+
+export enum NamesTabs {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
+
+export const NamesMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export const VIDEO_TIMER = 1000;

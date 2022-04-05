@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import { films } from './mocks/films';
+import { reviews } from './mocks/reviews';
 
 const PromoFilm =
   {
@@ -26,9 +27,6 @@ const PromoFilm =
     isFavorite: true,
   };
 
-
-const Genres = ['All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
-
 const AdditionalClassForHeader = {
   class: 'user-page__head',
 };
@@ -39,7 +37,7 @@ ReactDOM.render(
       additionalClass={AdditionalClassForHeader.class}
       promoFilm={PromoFilm}
       films={films}
-      genres={Genres}
+      reviews={reviews}
     />
   </React.StrictMode>,
   document.getElementById('root'));
