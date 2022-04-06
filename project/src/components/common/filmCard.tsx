@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, VIDEO_SIZES } from '../../constans';
+import { AppRoute, VIDEO_SIZES, VIDEO_TIMER } from '../../constans';
 import { FilmsTypes } from '../../types/films';
 import { useState } from 'react';
 import VideoPlayer from  './videoPlayer';
@@ -16,7 +16,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
   const handleMouseEnter = () => {
     videoTimer = setTimeout(() => {
       setActive(film.id);
-    }, 1000);
+    }, VIDEO_TIMER);
   };
 
   const handleMouseLeave = () => {
@@ -28,7 +28,11 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
   };
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="small-film-card__image">
         <VideoPlayer
           posterImage={film.posterImage}

@@ -9,15 +9,16 @@ import NotFound from './pages/404';
 import PrivateRoute from './components/private-route/private-route';
 import { AuthorizationStatus, AppRoute } from './constans';
 import { FilmsTypes } from './types/films';
+import { ReviewTypes } from './types/reviews';
 
 type AppTypes = {
   additionalClass: string,
   films: FilmsTypes[],
   promoFilm: FilmsTypes,
-  genres: string[],
+  reviews: ReviewTypes[],
 }
 
-function App({additionalClass, films, genres, promoFilm}: AppTypes): JSX.Element {
+function App({additionalClass, films, promoFilm, reviews}: AppTypes): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -27,7 +28,6 @@ function App({additionalClass, films, genres, promoFilm}: AppTypes): JSX.Element
             <Main
               authorizationStatus={AuthorizationStatus.NoAuth}
               films={films}
-              genres={genres}
               promoFilm={promoFilm}
             />
           )}
@@ -54,6 +54,7 @@ function App({additionalClass, films, genres, promoFilm}: AppTypes): JSX.Element
               <Films
                 authorizationStatus={AuthorizationStatus.NoAuth}
                 films={films}
+                reviews={reviews}
               />
             }
           />
@@ -63,6 +64,7 @@ function App({additionalClass, films, genres, promoFilm}: AppTypes): JSX.Element
                 <Films
                   authorizationStatus={AuthorizationStatus.NoAuth}
                   films={films}
+                  reviews={reviews}
                 />
               }
             />

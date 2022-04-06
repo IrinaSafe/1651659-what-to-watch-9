@@ -2,20 +2,24 @@ import SvgSprite from '../components/common/svgSprite';
 import HeadGuest from '../components/common/head-guest';
 import Footer from '../components/common/footer';
 import CatalogFilms from '../components/catalog-films/catalog-films';
-import { AuthorizationStatus, AppRoute, FilmLevel } from '../constans';
+import { AuthorizationStatus, AppRoute, FilmLevel, MORE_FILMS_COUNT } from '../constans';
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FilmsTypes } from '../types/films';
+import Tabs from '../components/tabs/tabs';
+import { ReviewTypes } from '../types/reviews';
 
 type FilmProps = {
   authorizationStatus: AuthorizationStatus,
   films: FilmsTypes[],
+  reviews: ReviewTypes[],
 };
 
-function Film({authorizationStatus, films}: FilmProps): JSX.Element {
+function Film({authorizationStatus, films, reviews}: FilmProps): JSX.Element {
   const pathParameters = useParams();
   const filmId = Number(pathParameters.id);
   const currentFilm = films.find((item) => item.id === filmId) || films[0];
+  const filteredGenreArray = films.filter((item) => item.genre === currentFilm.genre && item.id !== currentFilm.id).splice(0, MORE_FILMS_COUNT);
 
   const [filmLevel, setFilmLevel] = useState('');
 
@@ -95,41 +99,7 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="/test" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/test" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/test" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              {/* Меняющаяся часть */}
-              <div className="film-rating">
-                <div className="film-rating__score">{currentFilm.scoresCount}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{filmLevel}</span>
-                  <span className="film-rating__count">{`${currentFilm.rating} ratings`}</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{currentFilm.description}</p>
-
-                <p className="film-card__director">
-                  <strong>{`Director: ${currentFilm.director}`}</strong>
-                </p>
-
-                <p className="film-card__starring">
-                  <strong>{`Starring: ${currentFilm.starring.join(', ')}`}</strong>
-                </p>
-              </div>
-              {/* Конец меняющейся части */}
+              <Tabs currentFilm={currentFilm} filmLevel={filmLevel} reviews={reviews} />
             </div>
           </div>
         </div>
@@ -139,7 +109,7 @@ function Film({authorizationStatus, films}: FilmProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <CatalogFilms films={films} />
+          <CatalogFilms films={filteredGenreArray} />
         </section>
 
         <Footer />

@@ -1,19 +1,18 @@
 import SvgSprite from '../components/common/svgSprite';
 import HeadGuest from '../components/common/head-guest';
-import GenreItem from '../components/common/genres';
+import Genres from '../components/common/genres';
 import Footer from '../components/common/footer';
-import CatalogFilms from '../components/catalog-films/catalog-films';
 import { AuthorizationStatus } from '../constans';
 import { FilmsTypes } from '../types/films';
 
 type MainTypes = {
   authorizationStatus: AuthorizationStatus,
   films: FilmsTypes[],
-  genres: string[],
   promoFilm: FilmsTypes,
 };
 
-function Main({authorizationStatus, films, genres, promoFilm}: MainTypes): JSX.Element {
+function Main({authorizationStatus, films, promoFilm}: MainTypes): JSX.Element {
+
   return (
     <>
       <SvgSprite />
@@ -72,17 +71,7 @@ function Main({authorizationStatus, films, genres, promoFilm}: MainTypes): JSX.E
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            {genres.map((genre) => (
-              <GenreItem genre={genre} key={genre}/>
-            ))}
-          </ul>
-
-          <CatalogFilms films={films} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <Genres films={films} />
         </section>
 
         <Footer />

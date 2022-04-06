@@ -18,11 +18,12 @@ function VideoPlayer({posterImage, width, height, previewVideoLink, isActive}: V
 
     if (isActive) {
       videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-      videoRef.current.load();
+      return;
     }
+
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+    videoRef.current.load();
   }, [isActive]);
 
   return (
